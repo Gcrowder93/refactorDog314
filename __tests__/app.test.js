@@ -4,7 +4,6 @@ const request = require('supertest');
 const app = require('../lib/app');
 const Order = require('../lib/models/Order');
 
-// TODO: Remove this function & use the Order model
 async function createOrder({ product, quantity }) {
   const { rows } = await pool.query(
     'INSERT INTO orders(product, quantity) VALUES ($1, $2) RETURNING *;',
@@ -15,10 +14,7 @@ async function createOrder({ product, quantity }) {
 
 // TODO: Remove this function & use the Order model
 async function getOrderById(id) {
-  const { rows } = await pool.query(
-    'SELECT * FROM orders WHERE id=$1;',
-    [id]
-  );
+  const { rows } = await pool.query('SELECT * FROM orders WHERE id=$1;', [id]);
 
   if (!rows[0]) return null;
 
